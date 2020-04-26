@@ -24,6 +24,10 @@ public class Clinic {
 
     private double longitude;
 
+    private long turntimeinminutes;
+
+    private long numberofpatients;
+
     @OneToMany(mappedBy = "clinic",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
@@ -56,17 +60,26 @@ public class Clinic {
         return name;
     }
 
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public long getNumberofpatients() {
+        return numberofpatients;
+    }
+
+    public void setNumberofpatients(long numberofpatients) {
+        this.numberofpatients = numberofpatients;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getdetails() {
-        return details;
-    }
-
-    public void setdetails(String details) {
-        this.details = details;
-    }
 
     public long getCurrentturn() {
         return currentturn;
@@ -100,6 +113,14 @@ public class Clinic {
         this.longitude = longitude;
     }
 
+    public long getTurntimeinminutes() {
+        return turntimeinminutes;
+    }
+
+    public void setTurntimeinminutes(long turntimeinminutes) {
+        this.turntimeinminutes = turntimeinminutes;
+    }
+
     public List<Patient> getPatients() {
         return patients;
     }
@@ -118,6 +139,7 @@ public class Clinic {
                 ", starttime='" + starttime + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
+                ", turntimeinminutes=" + turntimeinminutes +
                 ", patients=" + patients +
                 '}';
     }

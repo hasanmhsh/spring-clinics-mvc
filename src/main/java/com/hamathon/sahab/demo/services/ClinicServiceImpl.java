@@ -45,6 +45,7 @@ public class ClinicServiceImpl implements ClinicService {
     @Transactional
     @Override
     public Clinic save(Clinic clinic) {
+        //Note that save method update the existing clinic in data base if id of newly created clinic match a clinic in database , and create new one if no matching iclinicid , and also true for patients
         Clinic newClinic = new Clinic();
 
         if (clinic.getClinicid() != 0)
@@ -55,11 +56,13 @@ public class ClinicServiceImpl implements ClinicService {
             newClinic.setClinicid(clinic.getClinicid());
         }
         newClinic.setName(clinic.getName());
-        newClinic.setdetails(clinic.getdetails());
+        newClinic.setDetails(clinic.getDetails());
         newClinic.setLatitude(clinic.getLatitude());
         newClinic.setLongitude(clinic.getLongitude());
         newClinic.setStarttime(clinic.getStarttime());
         newClinic.setCurrentturn(clinic.getCurrentturn());
+        newClinic.setTurntimeinminutes(clinic.getTurntimeinminutes());
+        newClinic.setNumberofpatients(clinic.getNumberofpatients());
 
 
         for (Patient p : clinic.getPatients())
@@ -67,6 +70,9 @@ public class ClinicServiceImpl implements ClinicService {
             Patient newPatient = new Patient(p.getName(),
                     p.getPatientturn(),
                     newClinic);
+            if(p.getPatientid() != 0){
+                newPatient.setPatientid(p.getPatientid());
+            }
 
             newClinic.getPatients()
                     .add(newPatient);
@@ -86,9 +92,9 @@ public class ClinicServiceImpl implements ClinicService {
             currentClinic.setName(clinic.getName());
         }
 
-        if (clinic.getdetails() != null && false)
+        if (clinic.getDetails() != null && false)
         {
-            currentClinic.setdetails(clinic.getdetails());
+            currentClinic.setDetails(clinic.getDetails());
         }
 
         if (clinic.getCurrentturn() != 0)
@@ -109,6 +115,11 @@ public class ClinicServiceImpl implements ClinicService {
         if (clinic.getLongitude() != 0 && false)
         {
             currentClinic.setLongitude(clinic.getLongitude());
+        }
+
+        if (clinic.getTurntimeinminutes() != 0)
+        {
+            currentClinic.setTurntimeinminutes(clinic.getTurntimeinminutes());
         }
 
         if (clinic.getPatients()
